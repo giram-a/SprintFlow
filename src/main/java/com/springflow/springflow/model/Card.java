@@ -3,6 +3,7 @@ package com.springflow.springflow.model;
 import java.time.Instant;
 import java.util.UUID;
 import com.springflow.springflow.state.CardState;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Card {
     public enum Priority { LOW, MEDIUM, HIGH, CRITICAL }
@@ -12,6 +13,7 @@ public class Card {
     private Priority priority = Priority.MEDIUM;
     private int storyPoints;
     private Instant createdAt = Instant.now();
+    private User assignedUser;
     // State (State pattern)
     private CardState state;
     public Card() {}
@@ -28,13 +30,21 @@ public class Card {
     public void setPriority(Priority priority) { this.priority = priority; }
     public int getStoryPoints(){ return storyPoints; }
     public void setStoryPoints(int s){ this.storyPoints = s; }
+
+    @JsonIgnore
     public CardState getState(){ return state; }
     public void setState(CardState s){ this.state = s; }
     public Instant getCreatedAt(){ return createdAt; }
     public void setCreatedAt(Instant createdAt){ this.createdAt = createdAt; }
+
+    public User getAssignedUser() {
+        return assignedUser;
+    }
+    public void setAssignedUser(User assignedUser) {
+        this.assignedUser = assignedUser;
+    }
+
     public String getStateName() {
-        // Returns the name from the current state object, handling null if the card
-        // was somehow created without the Factory (though the Factory should prevent this).
         return state != null ? state.name() : "UNINITIALIZED";
     }
 }

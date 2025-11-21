@@ -101,8 +101,7 @@ public class AgileBoardFacade {
 
         // Use the Adapter to fetch external user data and convert it
         var user = userAdapter.getUser(userId);
-        // Note: Card model doesn't have a 'user' field, so we just demonstrate the retrieval/conversion.
-        // In a real app, you would do: card.setAssignedUser(user);
+        card.setAssignedUser(user);
         System.out.println("Assigned Card: " + card.getTitle() + " to adapted user: " + user.getName());
     }
 
